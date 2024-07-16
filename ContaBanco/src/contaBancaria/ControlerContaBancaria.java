@@ -3,20 +3,17 @@ package contaBancaria;
 public class ControlerContaBancaria {
 	
 	ContaBancoUsuário user = new ContaBancoUsuário();
-	public String saqueConta(String agConta, String numConta, int valorSaque) {
-		
-		
-		if (user.agencia.equals(agConta)&&user.numConta.equals(numConta)) {
+	
+	public String saqueConta(String agConta, String numConta, int valorSaque, double saldoUser) {
 			
-			if(valorSaque > user.saldo) {
-				return "Saldo insuficiente";
+			if(valorSaque < saldoUser) {
+				saldoUser -= valorSaque;
+				user.setSaldo(saldoUser);
+				return "Saque efetuado com sucesso  R$" + saldoUser;
+				
+			}else {
+				return "Saldo insuficiente";							
 			}
-			
-			
-			user.saldo -= valorSaque;	
-		}
-		
-		return "Saque efetuado com sucesso";
 	}
 
 }
